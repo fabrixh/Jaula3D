@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#0a0f16; color:#fff; font-family:'IBM Plex Mono',monospace; overflow:hidden; }
+  body { background:#0a0f16; color:#fff; font-family:'IBM Plex Mono',monospace; overflow:hidden; padding-bottom:env(safe-area-inset-bottom, 0px); }
 
   #canvas-wrap { width:100vw; height:100vh; position:relative; }
   canvas { display:block; }
@@ -32,7 +32,8 @@
 
   /* Controles */
   .controls {
-    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+    position:absolute; bottom:env(safe-area-inset-bottom, 20px); left:50%; transform:translateX(-50%);
+    margin-bottom:20px;
     display:flex; gap:8px; flex-wrap:wrap; justify-content:center; max-width:90vw;
   }
   .btn {
@@ -45,7 +46,7 @@
 
   /* Hint arrastrar */
   .hint {
-    position:absolute; bottom:68px; left:50%; transform:translateX(-50%);
+    position:absolute; bottom:calc(env(safe-area-inset-bottom, 0px) + 68px); left:50%; transform:translateX(-50%);
     font-size:10px; color:#444; letter-spacing:2px; white-space:nowrap;
     pointer-events:none; background:rgba(10,15,22,0.6); padding:3px 10px;
   }
@@ -87,7 +88,7 @@
 
     /* Botones más chicos y en dos filas */
     .controls {
-      bottom:12px;
+      bottom:calc(env(safe-area-inset-bottom, 0px) + 14px);
       gap:5px;
       max-width:95vw;
     }
@@ -96,7 +97,7 @@
     /* Panel INFO ocupa casi toda la pantalla */
     #panel-info {
       top:auto !important;
-      bottom:70px !important;
+      bottom:calc(env(safe-area-inset-bottom, 0px) + 90px) !important;
       right:8px !important;
       left:8px !important;
       transform:none !important;
@@ -123,7 +124,7 @@
     #toggle-desc { font-size:8px; padding:2px 8px; }
 
     /* WhatsApp un poco más chico */
-    #wa-btn { width:42px; height:42px; bottom:14px; right:14px; }
+    #wa-btn { width:42px; height:42px; bottom:calc(env(safe-area-inset-bottom, 0px) + 14px); right:14px; }
     #wa-btn svg { width:22px; height:22px; }
   }
 
@@ -257,7 +258,7 @@
 
   <!-- WHATSAPP FLOTANTE -->
   <a href="https://wa.me/543804985423" target="_blank" id="wa-btn" style="
-    position:absolute; bottom:22px; right:24px;
+    position:fixed; bottom:calc(env(safe-area-inset-bottom, 0px) + 22px); right:24px;
     background:#25d366; border-radius:50%; width:48px; height:48px;
     display:flex; align-items:center; justify-content:center;
     box-shadow:0 4px 16px rgba(37,211,102,0.4);
