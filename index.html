@@ -69,6 +69,69 @@
   #panel-info { animation: fadeIn .25s ease; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(-50%) translateX(10px); } to { opacity:1; transform:translateY(-50%) translateX(0); } }
 
+  /* ── MODO CLARO ── */
+  body.light { background:#e8e5e0; }
+  body.light .hud-top { background:linear-gradient(to bottom, rgba(232,229,224,0.98) 60%, transparent); }
+  body.light .hud-title { color:#111; }
+  body.light .hud-sub { color:#c04a00; }
+  body.light .dim-row { color:#444; }
+  body.light .dim-row b { color:#c04a00; }
+
+  /* Leyenda modo claro */
+  body.light .legend { background:rgba(30,30,30,0.85); border-left-color:#e85d04; }
+  body.light .leg-item { color:#ddd; }
+
+  /* Botones modo claro — fondo oscuro para que se vean */
+  body.light .btn {
+    background:rgba(20,20,20,0.75);
+    border-color:rgba(232,93,4,0.6);
+    color:#f48c06;
+  }
+  body.light .btn:hover, body.light .btn.active {
+    background:rgba(232,93,4,0.85);
+    border-color:#e85d04;
+    color:#fff;
+  }
+
+  /* Hint */
+  body.light .hint { color:#999; background:rgba(20,20,20,0.5); }
+
+  /* Toggle descripción */
+  body.light #toggle-desc {
+    color:#c04a00; border-color:rgba(200,80,0,0.5);
+    background:rgba(240,237,232,0.9);
+  }
+
+  /* Paneles modo claro */
+  body.light #panel-desc, body.light #panel-info {
+    background:#f5f2ed !important;
+    border-left-color:#c04a00;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+  body.light #panel-desc *,
+  body.light #panel-info * { color:#333 !important; }
+  body.light #panel-desc b,
+  body.light #panel-info b { color:#111 !important; }
+  body.light #panel-desc [style*="background:rgba(232,93,4"],
+  body.light #panel-info [style*="background:rgba(232,93,4"] {
+    background:rgba(200,70,0,0.15) !important;
+  }
+  body.light #panel-desc [style*="background:rgba(74,158,255"],
+  body.light #panel-info [style*="background:rgba(74,158,255"] {
+    background:rgba(74,158,255,0.12) !important;
+  }
+  body.light .info-row { border-bottom-color:rgba(0,0,0,0.08) !important; }
+  body.light .info-row span:last-child { color:#111 !important; }
+  body.light .info-sub { color:#c04a00 !important; }
+  body.light .info-sub span { color:#111 !important; }
+
+  /* Switch */
+  body.light #theme-label { color:#555; }
+  body.light #theme-switch { background:#f48c06; border-color:#e85d04; }
+  body.light #theme-knob { left:19px !important; background:#fff; }
+  body.light #lang-switch { border-color:#3a7acc; }
+  body.light #lang-label { color:#555; }
+
   /* ── RESPONSIVE MÓVIL ── */
   @media (max-width: 600px) {
 
@@ -79,8 +142,8 @@
     .hud-top img { height:44px !important; width:44px !important; }
     .dim-row { font-size:9px; line-height:1.7; }
 
-    /* Leyenda más chica */
-    .legend { bottom:110px; left:10px; padding:7px 10px; gap:4px; }
+    /* Leyenda más chica — encima de los botones */
+    .legend { bottom:calc(env(safe-area-inset-bottom, 0px) + 145px); left:10px; padding:7px 10px; gap:4px; }
     .leg-item { font-size:9px; }
 
     /* Hint oculto en móvil */
@@ -130,6 +193,25 @@
 
   @keyframes fadeInMob { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 
+  /* ── TABLET (601px - 1024px) ── */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    .controls {
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+      gap: 7px;
+      max-width: 90vw;
+    }
+    .btn { font-size:11px; padding:8px 14px; }
+    .legend {
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+      left: 16px;
+      gap: 6px;
+    }
+    #wa-btn {
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+      right: 16px;
+    }
+  }
+
   /* Scroll suave en paneles */
   #panel-info::-webkit-scrollbar, #panel-desc::-webkit-scrollbar { width:4px; }
   #panel-info::-webkit-scrollbar-track, #panel-desc::-webkit-scrollbar-track { background:#0a0f16; }
@@ -153,17 +235,52 @@
         a:hover .ig-tooltip { opacity:1 !important; }
       </style>
       <div>
-        <div class="hud-title">JAULA DE CARGA <span>PICKUP 3D</span></div>
-        <div class="hud-sub">CAÑO 40×40 · 1.6mm · DESMONTABLE</div>
+        <div class="hud-title"><span id="hud-title-text">JAULA DE CARGA</span> <span id="hud-subtitle-text" style="color:var(--naranja,#e85d04)">PICKUP 3D</span></div>
+        <div class="hud-sub" id="hud-sub2">CAÑO 40×40 · 1.6mm · DESMONTABLE</div>
       </div>
     </div>
-    <div style="text-align:right;">
+    <div style="text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+      <!-- SWITCHES -->
+      <div style="display:flex; align-items:center; gap:14px; pointer-events:all;">
+
+        <!-- SWITCH IDIOMA -->
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span id="lang-es" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#e85d04;letter-spacing:1px;cursor:pointer;">ES</span>
+          <div id="lang-switch" style="
+            width:38px; height:20px; background:#1a2535; border-radius:10px;
+            position:relative; cursor:pointer; transition:background .3s;
+            border:1px solid #2a3a4a;
+          ">
+            <div id="lang-knob" style="
+              width:16px; height:16px; background:#4a9eff; border-radius:50%;
+              position:absolute; top:1px; left:1px; transition:left .3s;
+            "></div>
+          </div>
+          <span id="lang-en" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;letter-spacing:1px;cursor:pointer;">EN</span>
+        </div>
+
+        <!-- SWITCH OSCURO/CLARO -->
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span id="theme-label" style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#555;letter-spacing:1px;">🌙 OSCURO</span>
+          <div id="theme-switch" style="
+            width:38px; height:20px; background:#1a2535; border-radius:10px;
+            position:relative; cursor:pointer; transition:background .3s;
+            border:1px solid #2a3a4a;
+          ">
+            <div id="theme-knob" style="
+              width:16px; height:16px; background:#e85d04; border-radius:50%;
+              position:absolute; top:1px; left:1px; transition:left .3s;
+            "></div>
+          </div>
+        </div>
+      </div>
       <div class="hud-dims">
         <div class="dim-row">LARGO <b>250 cm</b></div>
-        <div class="dim-row">ANCHO <b>180 cm</b></div>
-        <div class="dim-row">ALTO <b>80 cm</b></div>
-        <div class="dim-row">EXT. TECHO <b>30+20 cm</b></div>
+        <div class="dim-row"><span id="hud-ancho">ANCHO</span> <b>180 cm</b></div>
+        <div class="dim-row"><span id="hud-alto">ALTO</span> <b>80 cm</b></div>
+        <div class="dim-row"><span id="hud-ext">EXT. TECHO</span> <b>30+20 cm</b></div>
       </div>
+      <div style="text-align:right;">
       <div id="toggle-desc" style="
         margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:9px;
         color:#e85d04; letter-spacing:1px; cursor:pointer; pointer-events:all;
@@ -172,6 +289,7 @@
       " onmouseover="this.style.background='rgba(232,93,4,0.2)'" 
          onmouseout="this.style.background='transparent'">
         ▼ VER DESCRIPCIÓN
+      </div>
       </div>
     </div>
   </div>
@@ -187,71 +305,69 @@
     max-height:85vh; overflow-y:auto; z-index:200;
   ">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e85d04;letter-spacing:2px;">JAULA DE CARGA PROFESIONAL</span>
+      <span id="desc-title" style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#e85d04;letter-spacing:2px;">JAULA DE CARGA PROFESIONAL</span>
       <span id="close-desc" style="color:#555;cursor:pointer;font-size:14px;padding:0 4px;">✕</span>
     </div>
 
     <p style="font-size:10px;color:#ccc;line-height:1.8;margin-bottom:14px;">
-      Estructura metálica de alta resistencia diseñada para pickups con habitáculo. 
-      Fabricada en caño estructural 40×40mm de 1.6mm de espesor 
-      y tratamiento anticorrosivo.
+      <span id="desc-body">Estructura metálica de alta resistencia diseñada para pickups con habitáculo. Fabricada en caño estructural 40×40mm de 1.6mm de espesor y tratamiento anticorrosivo.</span>
     </p>
 
     <div style="border-top:1px solid #1a2535;padding-top:12px;margin-bottom:12px;">
-      <div style="font-size:9px;color:#e85d04;letter-spacing:2px;margin-bottom:10px;">ESPECIFICACIONES TÉCNICAS</div>
+      <div id="desc-spec-title" style="font-size:9px;color:#e85d04;letter-spacing:2px;margin-bottom:10px;">ESPECIFICACIONES TÉCNICAS</div>
 
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
         <span style="color:#e85d04;font-size:12px;flex-shrink:0;">▸</span>
         <span style="font-size:10px;color:#bbb;line-height:1.6;">
-          <b style="color:#fff;">Carga útil estimada:</b> hasta 200 kg distribuidos uniformemente sobre la estructura
+          <b id="spec1t" style="color:#fff;">Carga útil estimada:</b> <span id="spec1v">hasta 200 kg distribuidos uniformemente sobre la estructura</span>
         </span>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
         <span style="color:#e85d04;font-size:12px;flex-shrink:0;">▸</span>
         <span style="font-size:10px;color:#bbb;line-height:1.6;">
-          <b style="color:#fff;">Resistencia al viento:</b> apta para ráfagas de hasta 80 km/h con lona tensada
+          <b id="spec2t" style="color:#fff;">Resistencia al viento:</b> <span id="spec2v">apta para ráfagas de hasta 80 km/h con lona tensada</span>
         </span>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
         <span style="color:#e85d04;font-size:12px;flex-shrink:0;">▸</span>
         <span style="font-size:10px;color:#bbb;line-height:1.6;">
-          <b style="color:#fff;">Sistema desmontable:</b> travesaño trasero con bulones de fácil extracción para cargas voluminosas
+          <b id="spec3t" style="color:#fff;">Sistema desmontable:</b> <span id="spec3v">travesaño trasero con bulones de fácil extracción para cargas voluminosas</span>
         </span>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
         <span style="color:#e85d04;font-size:12px;flex-shrink:0;">▸</span>
         <span style="font-size:10px;color:#bbb;line-height:1.6;">
-          <b style="color:#fff;">Protección de cabina:</b> grilla delantera con 2 parantes que resguardan el vidrio trasero del habitáculo
+          <b id="spec4t" style="color:#fff;">Protección de cabina:</b> <span id="spec4v">grilla delantera con 2 parantes que resguardan el vidrio trasero del habitáculo</span>
         </span>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
         <span style="color:#e85d04;font-size:12px;flex-shrink:0;">▸</span>
         <span style="font-size:10px;color:#bbb;line-height:1.6;">
-          <b style="color:#fff;">Acabado:</b> pintura antióxido + esmalte sintético, apto para uso exterior continuo
+          <b id="spec5t" style="color:#fff;">Acabado:</b> <span id="spec5v">pintura antióxido + esmalte sintético, apto para uso exterior continuo</span>
         </span>
       </div>
       <div style="display:flex;gap:8px;align-items:flex-start;">
         <span style="color:#e85d04;font-size:12px;flex-shrink:0;">▸</span>
         <span style="font-size:10px;color:#bbb;line-height:1.6;">
-          <b style="color:#fff;">Lona compatible:</b> admite lona de PVC o polietileno para uso en lluvia (no incluida)
+          <b id="spec6t" style="color:#fff;">Lona compatible:</b> <span id="spec6v">admite lona de PVC o polietileno para uso en lluvia (no incluida)</span>
         </span>
       </div>
     </div>
 
     <div style="background:rgba(232,93,4,0.1);border-left:2px solid #e85d04;padding:10px 12px;">
-      <div style="font-size:9px;color:#e85d04;letter-spacing:1px;margin-bottom:4px;">FABRICACIÓN A MEDIDA</div>
+      <div id="fab-title" style="font-size:9px;color:#e85d04;letter-spacing:1px;margin-bottom:4px;">FABRICACIÓN A MEDIDA</div>
       <div style="font-size:10px;color:#aaa;line-height:1.6;">
-        Cada unidad se fabrica según las medidas específicas del vehículo del cliente. 
-        Consulte por adaptaciones para otros modelos de pickup.
+        <span id="fab-desc">Cada unidad se fabrica según las medidas específicas del vehículo del cliente. Consulte por adaptaciones para otros modelos de pickup.</span>
       </div>
     </div>
+    </div><!-- /panel-desc-content -->
   </div>
 
   <div class="legend">
-    <div class="leg-item"><div class="leg-dot" style="background:#e85d04;"></div>Estructura principal</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#f48c06; opacity:.7;"></div>Divisiones internas</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#ffd166;"></div>Extensión techo cabina</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#4a9eff;"></div>Desmontable c/ bulones</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#e85d04;"></div><span id="leg1">Estructura principal</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#f48c06; opacity:.7;"></div><span id="leg2">Divisiones internas</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#ffd166;"></div><span id="leg3">Extensión techo cabina</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#4a9eff;"></div><span id="leg4">Desmontable c/ bulones</span></div>
   </div>
 
   <div class="hint" style="bottom:80px;">← ARRASTRÁ PARA ROTAR · SCROLL PARA ZOOM →</div>
@@ -281,58 +397,58 @@
     font-family:'IBM Plex Mono',monospace;
   ">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:2px;">MATERIALES</span>
+      <span id="info-title" style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:2px;">MATERIALES</span>
       <span id="btn-close-info" style="color:#e85d04;cursor:pointer;font-size:16px;padding:0 4px;">✕</span>
     </div>
 
     <!-- ESTRUCTURA PRINCIPAL -->
     <div style="margin-bottom:14px;">
-      <div style="font-size:9px;color:#e85d04;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #1a2535;padding-bottom:4px;">ESTRUCTURA PRINCIPAL</div>
-      <div class="info-row"><span>4 parantes verticales</span><span>3.20 m</span></div>
-      <div class="info-row"><span>2 largueros techo 250cm</span><span>5.00 m</span></div>
-      <div class="info-row"><span>Trav. techo frente ext.</span><span>1.80 m</span></div>
-      <div class="info-row" style="color:#4a9eff;"><span>Trav. techo trasero ⚙</span><span>1.80 m</span></div>
-      <div class="info-row"><span>2 largueros base C</span><span>4.40 m</span></div>
-      <div class="info-row"><span>Trav. base cabina</span><span>1.80 m</span></div>
-      <div class="info-sub">Subtotal <span>18.00 m</span></div>
+      <div id="info-grp1" style="font-size:9px;color:#e85d04;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #1a2535;padding-bottom:4px;">ESTRUCTURA PRINCIPAL</div>
+      <div class="info-row"><span id="ir1">4 vertical posts</span><span>3.20 m</span></div>
+      <div class="info-row"><span id="ir2">2 top rails 250cm</span><span>5.00 m</span></div>
+      <div class="info-row"><span id="ir3">Front top crossbar</span><span>1.80 m</span></div>
+      <div class="info-row" style="color:#4a9eff;"><span id="ir4">Rear top crossbar ⚙</span><span>1.80 m</span></div>
+      <div class="info-row"><span id="ir5">2 base rails C-shape</span><span>4.40 m</span></div>
+      <div class="info-row"><span id="ir6">Cab base crossbar</span><span>1.80 m</span></div>
+      <div class="info-sub"><span id="ir-sub1">Subtotal</span> <span>18.00 m</span></div>
     </div>
 
     <!-- EXTENSIÓN -->
     <div style="margin-bottom:14px;">
-      <div style="font-size:9px;color:#ffd166;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #1a2535;padding-bottom:4px;">EXTENSIÓN TECHO CABINA</div>
-      <div class="info-row"><span>4 parantes 20cm</span><span>0.80 m</span></div>
-      <div class="info-row"><span>2 bases laterales 30cm</span><span>0.60 m</span></div>
-      <div class="info-row"><span>Base ext. frente 180cm</span><span>1.80 m</span></div>
-      <div class="info-row"><span>Base ext. unión 180cm</span><span>1.80 m</span></div>
-      <div class="info-sub">Subtotal <span>5.00 m</span></div>
+      <div id="info-grp2" style="font-size:9px;color:#ffd166;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #1a2535;padding-bottom:4px;">EXTENSIÓN TECHO CABINA</div>
+      <div class="info-row"><span id="ir7">4 uprights 20cm</span><span>0.80 m</span></div>
+      <div class="info-row"><span id="ir8">2 side bases 30cm</span><span>0.60 m</span></div>
+      <div class="info-row"><span id="ir9">Front base 180cm</span><span>1.80 m</span></div>
+      <div class="info-row"><span id="ir10">Join base 180cm</span><span>1.80 m</span></div>
+      <div class="info-sub"><span id="ir-sub2">Subtotal</span> <span>5.00 m</span></div>
     </div>
 
     <!-- DIVISIONES -->
     <div style="margin-bottom:14px;">
-      <div style="font-size:9px;color:#f48c06;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #1a2535;padding-bottom:4px;">DIVISIONES INTERNAS</div>
-      <div class="info-row"><span>4 divisores vert. lateral</span><span>3.20 m</span></div>
-      <div class="info-row"><span>2 horizontales mitad alto</span><span>4.40 m</span></div>
-      <div class="info-row"><span>2 parantes prot. vidrio</span><span>1.20 m</span></div>
-      <div class="info-sub">Subtotal <span>8.80 m</span></div>
+      <div id="info-grp3" style="font-size:9px;color:#f48c06;letter-spacing:2px;margin-bottom:8px;border-bottom:1px solid #1a2535;padding-bottom:4px;">DIVISIONES INTERNAS</div>
+      <div class="info-row"><span id="ir11">4 lateral dividers</span><span>3.20 m</span></div>
+      <div class="info-row"><span id="ir12">2 mid-height rails</span><span>4.40 m</span></div>
+      <div class="info-row"><span id="ir13">2 window guard posts</span><span>1.20 m</span></div>
+      <div class="info-sub"><span id="ir-sub3">Subtotal</span> <span>8.80 m</span></div>
     </div>
 
     <!-- TOTAL -->
     <div style="border-top:2px solid #e85d04;padding-top:12px;margin-top:4px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;">
-        <span style="font-size:9px;color:#aaa;letter-spacing:2px;">TOTAL NETO</span>
+        <span id="info-total-neto" style="font-size:9px;color:#aaa;letter-spacing:2px;">TOTAL NETO</span>
         <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">31.80 m</span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;">
-        <span style="font-size:9px;color:#aaa;letter-spacing:2px;">+10% MERMA</span>
+        <span id="info-merma" style="font-size:9px;color:#aaa;letter-spacing:2px;">+10% MERMA</span>
         <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#aaa;">34.98 m</span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;background:rgba(232,93,4,0.15);padding:8px 10px;">
-        <span style="font-size:9px;color:#e85d04;letter-spacing:2px;">BARRAS 6m</span>
+        <span id="info-barras" style="font-size:9px;color:#e85d04;letter-spacing:2px;">BARRAS 6m</span>
         <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#e85d04;">6 u.</span>
       </div>
 
       <div style="margin-top:8px;padding:6px 8px;background:rgba(74,158,255,0.1);border-left:2px solid #4a9eff;">
-        <span style="font-size:9px;color:#4a9eff;letter-spacing:1px;">⚙ Trav. trasero desmontable c/ bulones</span>
+        <span id="info-desm-note" style="font-size:9px;color:#4a9eff;letter-spacing:1px;">⚙ Trav. trasero desmontable c/ bulones</span>
       </div>
     </div>
   </div>
@@ -345,6 +461,7 @@
     <div class="btn" id="btn-iso">3/4</div>
     <div class="btn" id="btn-far">PANORAMA</div>
     <div class="btn" id="btn-info">⚙ INFO</div>
+    <div class="btn" id="btn-tour">▶ TOUR</div>
   </div>
 </div>
 
@@ -600,7 +717,7 @@ scene.add(ptLight);
 // ═══════════════════════════════════════════════
 // CÁMARA INICIAL
 // ═══════════════════════════════════════════════
-camera.position.set(280, 180, 350);
+camera.position.set(380, 220, 450);
 camera.lookAt(0, 0, 0);
 
 // ═══════════════════════════════════════════════
@@ -696,12 +813,12 @@ function goTo(theta, phi, r, dur) {
 }
 
 // theta: 0=lateral izq  PI/2=frente cabina  PI=lateral dcha  3PI/2=trasera compuerta
-document.getElementById('btn-front').addEventListener('click', () => goTo(Math.PI/2,  Math.PI/2.05, 380));  // frente cabina
-document.getElementById('btn-side') .addEventListener('click', () => goTo(Math.PI,    Math.PI/2.05, 420));  // lateral dcha
-document.getElementById('btn-back') .addEventListener('click', () => goTo(3*Math.PI/2, Math.PI/2.05, 380)); // trasera compuerta
-document.getElementById('btn-top')  .addEventListener('click', () => goTo(Math.PI/2,  0.12, 500));          // superior
-document.getElementById('btn-iso')  .addEventListener('click', () => goTo(Math.PI*1.2, Math.PI/3.5, 600));  // 3/4 — vista diagonal
-document.getElementById('btn-far')  .addEventListener('click', () => goTo(Math.PI*1.1, Math.PI/4, 950));   // panorama — todo el vehículo
+document.getElementById('btn-front').addEventListener('click', () => goTo(Math.PI/2,   Math.PI/2.05, 580));  // frente cabina
+document.getElementById('btn-side') .addEventListener('click', () => goTo(Math.PI,     Math.PI/2.05, 650));  // lateral dcha
+document.getElementById('btn-back') .addEventListener('click', () => goTo(3*Math.PI/2, Math.PI/2.05, 580));  // trasera compuerta
+document.getElementById('btn-top')  .addEventListener('click', () => goTo(Math.PI/2,   0.12,         600));  // superior
+document.getElementById('btn-iso')  .addEventListener('click', () => goTo(Math.PI*1.2, Math.PI/3.5,  700));  // 3/4
+document.getElementById('btn-far')  .addEventListener('click', () => goTo(Math.PI*1.1, Math.PI/4,   1050));  // panorama
 
 // ═══════════════════════════════════════════════
 // ANIMACIÓN
@@ -739,6 +856,299 @@ document.getElementById('close-desc').addEventListener('click', () => {
   document.getElementById('panel-desc').style.display = 'none';
   document.getElementById('toggle-desc').textContent = '▼ VER DESCRIPCIÓN';
 });
+
+// ═══════════════════════════════════════════════
+// SWITCH IDIOMA ES / EN
+// ═══════════════════════════════════════════════
+const translations = {
+  es: {
+    title:       'JAULA DE CARGA',
+    subtitle:    'PICKUP 3D',
+    sub2:        'CAÑO 40×40 · 1.6mm · DESMONTABLE',
+    largo:       'LARGO', ancho: 'ANCHO', alto: 'ALTO', ext: 'EXT. TECHO',
+    verDesc:     '▼ VER DESCRIPCIÓN',
+    ocultarDesc: '▲ OCULTAR',
+    btnFront:    'FRENTE', btnSide: 'LATERAL', btnBack: 'TRASERA',
+    btnTop:      'SUPERIOR', btnIso: '3/4', btnFar: 'PANORAMA',
+    btnInfo:     '⚙ INFO', btnTour: '▶ TOUR', btnStop: '⏹ STOP',
+    oscuro:      '🌙 OSCURO', claro: '☀️ CLARO',
+    legEst:'Estructura principal', legDiv:'Divisiones internas',
+    legExt:'Extensión techo cabina', legBolt:'Desmontable c/ bulones',
+    panelTitle:  'JAULA DE CARGA PROFESIONAL',
+    panelDesc:   'Estructura metálica de alta resistencia diseñada para pickups con habitáculo. Fabricada en caño estructural 40×40mm de 1.6mm de espesor y tratamiento anticorrosivo.',
+    specTitle:   'ESPECIFICACIONES TÉCNICAS',
+    spec1t: 'Carga útil estimada:', spec1v: 'hasta 200 kg distribuidos uniformemente sobre la estructura',
+    spec2t: 'Resistencia al viento:', spec2v: 'apta para ráfagas de hasta 80 km/h con lona tensada',
+    spec3t: 'Sistema desmontable:', spec3v: 'travesaño trasero con bulones de fácil extracción para cargas voluminosas',
+    spec4t: 'Protección de cabina:', spec4v: 'grilla delantera con 2 parantes que resguardan el vidrio trasero del habitáculo',
+    spec5t: 'Acabado:', spec5v: 'pintura antióxido + esmalte sintético, apto para uso exterior continuo',
+    spec6t: 'Lona compatible:', spec6v: 'admite lona de PVC o polietileno para uso en lluvia (no incluida)',
+    fabTitle: 'FABRICACIÓN A MEDIDA',
+    fabDesc: 'Cada unidad se fabrica según las medidas específicas del vehículo del cliente. Consulte por adaptaciones para otros modelos de pickup.',
+    infoTitle: 'MATERIALES',
+    grp1: 'ESTRUCTURA PRINCIPAL', grp2: 'EXTENSIÓN TECHO CABINA',
+    ir1:'4 parantes verticales', ir2:'2 largueros techo 250cm', ir3:'Trav. techo frente ext.',
+    ir4:'Trav. techo trasero ⚙', ir5:'2 largueros base C', ir6:'Trav. base cabina',
+    ir7:'4 parantes 20cm', ir8:'2 bases laterales 30cm', ir9:'Base ext. frente 180cm',
+    ir10:'Base ext. unión 180cm', ir11:'4 divisores vert. lateral',
+    ir12:'2 horizontales mitad alto', ir13:'2 parantes prot. vidrio', irSub:'Subtotal',
+    grp3: 'DIVISIONES INTERNAS',
+    totalNeto: 'TOTAL NETO', merma: '+10% MERMA', barras: 'BARRAS 6m',
+    desmNote: '⚙ Trav. trasero desmontable c/ bulones',
+    tourLabels: ['VISTA 3/4','FRENTE','SUPERIOR','LATERAL','TRASERA','PANORAMA','VISTA 3/4'],
+  },
+  en: {
+    title:       'CARGO RACK',
+    subtitle:    'PICKUP 3D',
+    sub2:        '40×40 TUBE · 1.6mm · REMOVABLE',
+    largo:       'LENGTH', ancho: 'WIDTH', alto: 'HEIGHT', ext: 'CAB EXT.',
+    verDesc:     '▼ VIEW DESCRIPTION',
+    ocultarDesc: '▲ HIDE',
+    btnFront:    'FRONT', btnSide: 'SIDE', btnBack: 'REAR',
+    btnTop:      'TOP', btnIso: '3/4', btnFar: 'WIDE',
+    btnInfo:     '⚙ INFO', btnTour: '▶ TOUR', btnStop: '⏹ STOP',
+    oscuro:      '🌙 DARK', claro: '☀️ LIGHT',
+    legEst:'Main structure', legDiv:'Internal divisions',
+    legExt:'Cab roof extension', legBolt:'Removable w/ bolts',
+    panelTitle:  'PROFESSIONAL CARGO RACK',
+    panelDesc:   'High-resistance metal structure designed for pickups with cab. Built with 40×40mm structural tube, 1.6mm wall thickness and anti-corrosion treatment.',
+    specTitle:   'TECHNICAL SPECIFICATIONS',
+    spec1t: 'Estimated payload:', spec1v: 'up to 200 kg evenly distributed across the structure',
+    spec2t: 'Wind resistance:', spec2v: 'suitable for gusts up to 80 km/h with tarpaulin fitted',
+    spec3t: 'Removable system:', spec3v: 'rear crossbar with quick-release bolts for oversized loads',
+    spec4t: 'Cab protection:', spec4v: 'front grid with 2 uprights protecting the rear cab window',
+    spec5t: 'Finish:', spec5v: 'anti-rust primer + synthetic enamel, suitable for continuous outdoor use',
+    spec6t: 'Compatible tarp:', spec6v: 'PVC or polyethylene tarpaulin for rain use (not included)',
+    fabTitle: 'CUSTOM BUILT',
+    fabDesc: 'Each unit is built to the specific measurements of the client vehicle. Ask about adaptations for other pickup models.',
+    infoTitle: 'MATERIALS',
+    grp1: 'MAIN STRUCTURE', grp2: 'CAB ROOF EXTENSION',
+    ir1:'4 vertical posts', ir2:'2 top rails 250cm', ir3:'Front top crossbar',
+    ir4:'Rear top crossbar ⚙', ir5:'2 base rails C-shape', ir6:'Cab base crossbar',
+    ir7:'4 uprights 20cm', ir8:'2 side bases 30cm', ir9:'Front base 180cm',
+    ir10:'Join base 180cm', ir11:'4 lateral dividers',
+    ir12:'2 mid-height rails', ir13:'2 window guard posts', irSub:'Subtotal',
+    grp3: 'INTERNAL DIVISIONS',
+    totalNeto: 'NET TOTAL', merma: '+10% WASTE', barras: '6m BARS',
+    desmNote: '⚙ Rear crossbar removable w/ bolts',
+    tourLabels: ['3/4 VIEW','FRONT','TOP','SIDE','REAR','WIDE VIEW','3/4 VIEW'],
+  }
+};
+
+let currentLang = 'es';
+
+function applyLang(lang) {
+  const t = translations[lang];
+  // Helper seguro: si el elemento no existe, no crashea
+  const s = (id, val, prop) => {
+    const el = document.getElementById(id);
+    if (el) el[prop || 'textContent'] = val;
+  };
+
+  // Título y subtexto
+  s('hud-title-text',    t.title);
+  s('hud-subtitle-text', t.subtitle);
+  s('hud-sub2',          t.sub2);
+
+  // Dimensiones
+  s('hud-ancho', t.ancho);
+  s('hud-alto',  t.alto);
+  s('hud-ext',   t.ext);
+
+  // Toggle descripción
+  const tdesc = document.getElementById('toggle-desc');
+  const pdesc = document.getElementById('panel-desc');
+  if (tdesc) tdesc.textContent = (pdesc && pdesc.style.display !== 'none') ? t.ocultarDesc : t.verDesc;
+
+  // Botones
+  s('btn-front', t.btnFront);
+  s('btn-side',  t.btnSide);
+  s('btn-back',  t.btnBack);
+  s('btn-top',   t.btnTop);
+  s('btn-iso',   t.btnIso);
+  s('btn-far',   t.btnFar);
+  s('btn-info',  t.btnInfo);
+  s('btn-tour',  tourActive ? t.btnStop : t.btnTour);
+
+  // Leyenda
+  s('leg1', t.legEst);
+  s('leg2', t.legDiv);
+  s('leg3', t.legExt);
+  s('leg4', t.legBolt);
+
+  // Switch idioma — resaltar el activo
+  const elES = document.getElementById('lang-es');
+  const elEN = document.getElementById('lang-en');
+  if (elES) elES.style.color = lang === 'es' ? '#e85d04' : '#555';
+  if (elEN) elEN.style.color = lang === 'en' ? '#e85d04' : '#555';
+
+  // Switch tema label
+  s('theme-label', isLight ? t.claro : t.oscuro);
+
+  // Panel info — título y grupos
+  s('info-title',      t.infoTitle);
+  s('info-grp1',       t.grp1);
+  s('info-grp2',       t.grp2);
+  s('info-grp3',       t.grp3);
+  s('info-total-neto', t.totalNeto);
+  s('info-barras',     t.barras);
+  s('info-merma',      t.merma);
+  // Filas panel INFO
+  for(let i=1;i<=13;i++) s('ir'+i, t['ir'+i]);
+  s('ir-sub1', t.irSub); s('ir-sub2', t.irSub); s('ir-sub3', t.irSub);
+  s('info-desm-note',  t.desmNote);
+
+  // Panel descripción
+  s('desc-body',       t.panelDesc);
+  s('desc-spec-title', t.specTitle);
+  s('spec1t', t.spec1t); s('spec1v', t.spec1v);
+  s('spec2t', t.spec2t); s('spec2v', t.spec2v);
+  s('spec3t', t.spec3t); s('spec3v', t.spec3v);
+  s('spec4t', t.spec4t); s('spec4v', t.spec4v);
+  s('spec5t', t.spec5t); s('spec5v', t.spec5v);
+  s('spec6t', t.spec6t); s('spec6v', t.spec6v);
+  s('fab-title', t.fabTitle);
+  s('fab-desc',  t.fabDesc);
+
+  // Tour labels — se leen dinámicamente de translations[currentLang] en runTourStep
+}
+
+// ═══════════════════════════════════════════════
+// SWITCH OSCURO / CLARO
+// ═══════════════════════════════════════════════
+let isLight = false;
+const themeSwitch = document.getElementById('theme-switch');
+const themeKnob   = document.getElementById('theme-knob');
+const themeLabel  = document.getElementById('theme-label');
+
+function setTheme(light) {
+  isLight = light;
+  if (light) {
+    document.body.classList.add('light');
+    scene.background = new THREE.Color(0xe8e5e0);
+    scene.fog = new THREE.Fog(0xe8e5e0, 800, 1400);
+    gridHelper.material && (gridHelper.material.color = new THREE.Color(0xbbbbbb));
+    themeLabel.textContent = translations[currentLang].claro;
+    themeKnob.style.left = '19px';
+    themeSwitch.style.background = '#f48c06';
+  } else {
+    document.body.classList.remove('light');
+    scene.background = new THREE.Color(0x0a0f16);
+    scene.fog = new THREE.Fog(0x0a0f16, 800, 1400);
+    themeLabel.textContent = translations[currentLang].oscuro;
+    themeKnob.style.left = '1px';
+    themeSwitch.style.background = '#1a2535';
+  }
+}
+
+themeSwitch.style.pointerEvents = 'all';
+themeSwitch.addEventListener('click', () => setTheme(!isLight));
+
+
+
+// ═══════════════════════════════════════════════
+// TOUR AUTOMÁTICO
+// ═══════════════════════════════════════════════
+const tourSteps = [
+  { theta: Math.PI*1.2,   phi: Math.PI/3.5,   r: 700,  dur: 1200, key: "tour34"     },
+  { theta: Math.PI/2,     phi: Math.PI/2.05,  r: 580,  dur: 1800, key: "tourFrente" },
+  { theta: Math.PI/2,     phi: 0.12,          r: 600,  dur: 1800, key: "tourSup"    },
+  { theta: Math.PI,       phi: Math.PI/2.05,  r: 650,  dur: 1800, key: "tourLat"    },
+  { theta: 3*Math.PI/2,   phi: Math.PI/2.05,  r: 580,  dur: 1800, key: "tourTras"   },
+  { theta: Math.PI*1.1,   phi: Math.PI/4,     r: 1050, dur: 1800, key: "tourPan"    },
+  { theta: Math.PI*1.2,   phi: Math.PI/3.5,   r: 700,  dur: 1200, key: "tour34"     },
+];
+
+let tourActive  = false;
+let tourIndex   = 0;
+let tourTimeout = null;
+let tourLabelEl = null;
+
+function createTourLabel() {
+  if (tourLabelEl) return;
+  tourLabelEl = document.createElement('div');
+  tourLabelEl.style.cssText = [
+    'position:fixed',
+    'top:50%',
+    'left:50%',
+    'transform:translate(-50%,-50%)',
+    'font-family:Bebas Neue,sans-serif',
+    'font-size:clamp(32px,8vw,64px)',
+    'color:rgba(232,93,4,0.45)',
+    'letter-spacing:8px',
+    'pointer-events:none',
+    'transition:opacity 0.5s ease',
+    'opacity:0',
+    'z-index:9999',
+    'text-shadow:0 0 30px rgba(232,93,4,0.2)',
+    'white-space:nowrap',
+  ].join(';');
+  document.body.appendChild(tourLabelEl);
+}
+
+function showTourLabel(text) {
+  if (!tourLabelEl) return;
+  tourLabelEl.textContent = text;
+  tourLabelEl.style.opacity = '1';
+  setTimeout(() => { if(tourLabelEl) tourLabelEl.style.opacity = '0'; }, 1200);
+}
+
+function runTourStep(index) {
+  if (!tourActive) return;
+  const i = index % tourSteps.length;
+  const step = tourSteps[i];
+  const labels = translations[currentLang].tourLabels;
+  const label = labels ? labels[i] : step.key;
+  showTourLabel(label);
+  goTo(step.theta, step.phi, step.r, step.dur - 400);
+  tourTimeout = setTimeout(() => {
+    tourIndex = (index + 1) % tourSteps.length;
+    runTourStep(tourIndex);
+  }, step.dur);
+}
+
+function startTour() {
+  tourActive = true;
+  autoRotate = false;
+  tourIndex  = 0;
+  createTourLabel();
+  document.getElementById('btn-tour').textContent = '⏹ STOP';
+  document.getElementById('btn-tour').classList.add('active');
+  runTourStep(0);
+}
+
+function stopTour() {
+  tourActive = false;
+  clearTimeout(tourTimeout);
+  document.getElementById('btn-tour').textContent = '▶ TOUR';
+  document.getElementById('btn-tour').classList.remove('active');
+}
+
+document.getElementById('btn-tour').addEventListener('click', () => {
+  if (tourActive) stopTour();
+  else startTour();
+});
+
+// Switch idioma — va acá donde tourActive ya está declarado
+const langSwitch = document.getElementById('lang-switch');
+const langKnob   = document.getElementById('lang-knob');
+
+langSwitch.style.pointerEvents = 'all';
+langSwitch.addEventListener('click', () => {
+  currentLang = currentLang === 'es' ? 'en' : 'es';
+  if (currentLang === 'en') {
+    langKnob.style.left = '19px';
+    langSwitch.style.background = '#4a9eff';
+  } else {
+    langKnob.style.left = '1px';
+    langSwitch.style.background = '#1a2535';
+  }
+  applyLang(currentLang);
+});
+
+// Detener tour si el usuario interactúa
+cvs.addEventListener('mousedown', stopTour);
+cvs.addEventListener('touchstart', () => { if(tourActive) stopTour(); }, { passive:true });
 
 // Toggle panel info
 document.getElementById('btn-info').addEventListener('click', () => {
